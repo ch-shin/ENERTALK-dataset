@@ -1,1 +1,4 @@
 enertalk-dataset/*
+*.egg-info
+dist
+build
