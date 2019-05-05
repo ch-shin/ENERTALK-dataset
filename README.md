@@ -20,10 +20,16 @@ Fig08.ipynb
 * Figure 8: Hourly distribution of average power consumption (house 00)
 
 Fig09.ipynb
-* Top four cluster centers found with adaptive K-means clustering on the normalized data.
+* Figure 9: Top four cluster centers found with adaptive K-means clustering on the normalized data.
 
 Fig10.ipynb
 * Figure 10: Box plot of daily on-ratio over the 22 houses.
 
 Fig11.ipynb
 * Figure 11: Heatmap of daily observation ratio for the 22 houses.
+
+Fig12.ipynb
+* Figure 12: Average occurrence count of gaps for the 22 houses.
+
+Fig13.ipynb
+* Figure 13: Observation ratio of House 00
