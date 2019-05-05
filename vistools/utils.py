@@ -18,6 +18,7 @@ import matplotlib.dates as md
 import pickle
 import functools
 import seaborn as sns
+import multiprocessing as mp
 from multiprocessing import Pool
 from matplotlib import font_manager, rc
 from pytz import timezone
@@ -448,3 +449,101 @@ def downsampling_with_first_sample(df, unit):
     df_downsampled = df.groupby(['timestamp_agg'], as_index=False)['timestamp', 'active_power', 'reactive_power'].first().reset_index()
     
     return(df_downsampled)
+
+
+def aggregate_by_hour(target_data):
+    target_data['hour'] = target_data['timestamp'].dt.hour
+    target_data_agg = target_data.groupby(['hour', 'appliance_name'], as_index=False)['active_power', 'reactive_power'].agg(['mean'])
+    target_data_agg = target_data_agg.reset_index()
+    return(target_data_agg)
+
+def select_app_data(df, app_name):
+    return df[df['appliance_name']==app_name]
+
+def get_all_day_by_house(base_path, num_processes = mp.cpu_count()):
+    target_file_dates = [f for f in os.listdir(base_path)]
+    target_file_path = [base_path + '/' + f_name for f_name in target_file_dates]
+    pool = Pool(processes=num_processes) # or whatever your hardware can support
+    df_list = pool.map(preprocessing_one_day, target_file_path)
+    # reduce the list of dataframes to a single dataframe
+    result = pd.concat(df_list, ignore_index=True)
+    return(result)
+
+
+def preprocessing_one_day(target_path):
+    target_file_names = [f for f in os.listdir(target_path)]
+    target_sample = [pd.read_parquet(target_path + '/' + f_name) for f_name in target_file_names]
+    
+    for sample_index in range(0, len(target_sample)):
+        target_sample[sample_index].columns = ['active_power', 'reactive_power', 'timestamp']
+        target_sample[sample_index]['timestamp'] = pd.to_datetime(target_sample[sample_index]['timestamp'], unit = 'ms')
+        target_sample[sample_index]['appliance_name'] = target_file_names[sample_index].split('_', 1)[1].split('.',1)[0]
+    
+    target_sample = pd.concat(target_sample)
+    target_sample = target_sample.set_index(pd.DatetimeIndex(target_sample['timestamp']))
+    print(set(target_sample['appliance_name']))
+    
+    return(target_sample)
+
+
+def read_with_mp(path_lst, num_processes = mp.cpu_count()):
+    """
+    read csv files from path_lst with multipl
+    
+    input
+    ----
+    path_lst: file path lst to read
+    num_processes: the number of multiprocessing units
+    output
+    ----
+    df: pd.DataFrame that contains all data
+    
+    """
+    pool = Pool(processes=num_processes) # or whatever your hardware can support
+    
+    # have your pool map the file names to dataframes
+    df_list = pool.map(read_parquet, path_lst)
+
+
+    # reduce the list of dataframes to a single dataframe
+    df = pd.concat(df_list, ignore_index=True)
+    
+    pool.close()
+    pool.join()
+     
+    return df
+
+def filter_on_data(df, on_threshold = 15):
+    """
+    get appliance "on" state data, which has active_power over on_threshold
+    input
+    ----
+       df: dataframe with columns ['timestamp', 'active_power', 'reactive_power'] 
+       on_threshold: active power threshold that determine the 'on' state of appliances 
+       
+    output
+    ----
+       df_on: pandas dataframe with pretty application name index
+    
+    """
+    df_on = df[df['active_power'] > on_threshold]
+    
+    return df_on
+   
+def get_dict(gap_count):
+    parsed = {}
+    trimmed = gap_count.replace('{','').replace('}','').replace(' ','')
+    splited = trimmed.split(',')
+    for matching in splited:
+        sec = matching.split(':')[0]
+        count = matching.split(':')[1]
+        if int(sec) < 60:
+            parsed[sec+'s'] = int(count)
+        elif int(sec) < 3600:
+            minutes = str(int(int(sec)/60))
+            parsed[minutes+'m'] = int(count)
+        else:
+            hours = str(int(int(sec)/3600))
+            parsed[hours+'h'] = int(count)
+    return parsed
+
