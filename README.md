@@ -27,3 +27,9 @@ Fig10.ipynb
 
 Fig11.ipynb
 * Figure 11: Heatmap of daily observation ratio for the 22 houses.
+
+Fig12.ipynb
+* Figure 12: Average occurrence count of gaps for the 22 houses.
+
+Fig13.ipynb
+* Figure 13: Observation ratio of House 00
