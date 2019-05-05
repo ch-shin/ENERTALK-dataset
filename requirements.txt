@@ -1,0 +1,8 @@
+setuptools==0.9.8
+numpy==1.15.4
+pytz==2016.10
+ipython==7.5.0
+ipywidgets==7.4.2
+matplotlib==3.0.3
+pandas==0.24.2
+seaborn==0.9.0
