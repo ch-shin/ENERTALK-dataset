@@ -328,31 +328,6 @@ def draw_cum_plot(df_agg):
     ax.xaxis.set_major_formatter(h_fmt)
     plt.margins(x=0, tight = True)
 
-
-def get_app_color(app_name):
-    palette = sns.color_palette("tab20")
-    if app_name == 'Standby Power':
-        color = "dimgrey"
-    elif app_name == 'TV':
-        color = palette[10]
-    elif app_name == 'fridge':
-        color = palette[0]
-    elif app_name == 'kimchi-fridge':
-        color = palette[6]
-    elif app_name == 'water-purifier':
-        color = palette[19]
-    elif app_name == 'washing-machine':
-        color = palette[18]
-    elif app_name == 'rice-cooker':
-        color = palette[2]
-    elif app_name == 'microwave':
-        color = palette[7]
-    elif app_name == 'unknown':
-        color = 'silver'
-    else:
-        raise ('I dont know about ' + app_name)
-    return color
-
 def filter_on_data(df, on_threshold = 15):
     """
     get appliance "on" state data, which has active_power over on_threshold
@@ -430,3 +405,46 @@ def get_pretty_name(app_name):
         
     return pretty_name
 
+def get_app_color(app_name):
+    palette = sns.color_palette("tab20")
+    if app_name == 'Standby Power':
+        color = "dimgrey"
+    elif app_name == 'TV':
+        color = palette[10]
+    elif app_name == 'fridge':
+        color = palette[0]
+    elif app_name == 'kimchi-fridge':
+        color = palette[6]
+    elif app_name == 'water-purifier':
+        color = palette[19]
+    elif app_name == 'washing-machine':
+        color = palette[18]
+    elif app_name == 'rice-cooker':
+        color = palette[2]
+    elif app_name == 'microwave':
+        color = palette[7]
+    elif app_name == 'unknown':
+        color = 'silver'
+    elif app_name == 'total':
+        color = 'black'
+    else:
+        raise ('I dont know about ' + app_name)
+    return color
+
+def downsampling_with_first_sample(df, unit):
+    """
+    downsampling with given sampling rate(unit)
+    input
+    ----
+       df: dataframe with columns ['timestamp', 'active_power', 'reactive_power'] 
+       
+    output
+    ----
+       df_pretty: pandas dataframe with pretty application name index
+    
+    """
+    ## unit : second;S, 10minutes;10T
+    df['timestamp_agg'] = df['timestamp'].dt.floor(unit)
+    df_downsampled = df.groupby(['timestamp_agg'], as_index=False)['timestamp', 'active_power', 'reactive_power'].first().reset_index()
+    
+    return(df_downsampled)
