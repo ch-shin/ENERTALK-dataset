@@ -12,7 +12,7 @@ After acquiring the
 data and running the setup scripts your folder structure should look
 like
 ```
-DATA_PATH/
+PROJECT_PATH/
     enertalk-dataset/
         00/
             20161101/
