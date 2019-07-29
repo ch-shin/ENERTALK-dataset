@@ -2,3 +2,4 @@ enertalk-dataset/*
 enertalk_dataset_visualization.egg-info
 dist
 build
+*__pycache__*
