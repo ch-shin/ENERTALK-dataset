@@ -1,0 +1,15 @@
+instance: 15
+original_name: house_14
+elec_meters:
+  1:
+    site_meter: true
+    device_model: ENERTALK
+  2:
+    submeter_of: 0
+    device_model: ENERTALK PLUG
+appliances:
+- original_name: fridge
+  type: fridge
+  instance: 1
+  meters:
+  - 2

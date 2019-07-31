@@ -1,0 +1,39 @@
+instance: 22
+original_name: house_21
+elec_meters:
+  1:
+    site_meter: true
+    device_model: ENERTALK
+  2:
+    submeter_of: 0
+    device_model: ENERTALK PLUG
+  3:
+    submeter_of: 0
+    device_model: ENERTALK PLUG
+  4:
+    submeter_of: 0
+    device_model: ENERTALK PLUG
+  5:
+    submeter_of: 0
+    device_model: ENERTALK PLUG
+appliances:
+- original_name: TV
+  type: TV
+  instance: 1
+  meters:
+  - 2
+- original_name: kimchi-fridge
+  type: kimchi-fridge
+  instance: 1
+  meters:
+  - 3
+- original_name: washing-machine
+  type: washing-machine
+  instance: 1
+  meters:
+  - 4
+- original_name: rice-cooker
+  type: rice-cooker
+  instance: 1
+  meters:
+  - 5

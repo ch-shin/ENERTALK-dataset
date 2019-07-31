@@ -1,0 +1,22 @@
+name: ENERTALK
+long_name: The ENERTALK Data set
+creators:
+- Shin, Changho
+- Lee, Eunjung
+- Han, Jungyun
+- Yim, Jaeryun
+- Rhee, Wonjong
+- Lee, Hyoseop
+contact:
+- chshin@encoredtech.com
+- hslee@encoredtech.com
+description: Several weeks of power data for 22 different Korean homes with 15 Hz
+  resolution
+number_of_buildings: 22
+timezone: Asia/Seoul
+geo_location:
+  locality: Seoul
+  country: KR
+  latitude: 37.5080615
+  longitude: 127.03555000000006
+schema: https://github.com/nilmtk/nilm_metadata/tree/v0.2
