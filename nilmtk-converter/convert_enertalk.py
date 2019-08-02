@@ -109,6 +109,6 @@ def _load_parquet(file_path, tz='Asia/Seoul'):
 
 if __name__=='__main__':
     input_path = '../enertalk-dataset'
-    output_path = 'nilmtk_converted/'
+    output_path = 'enertalk_converted/'
     output_filename = join(output_path, 'enertalk.h5')
     convert_enertalk(input_path, output_filename)
