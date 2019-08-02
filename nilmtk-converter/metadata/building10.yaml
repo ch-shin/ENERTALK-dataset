@@ -18,7 +18,7 @@ elec_meters:
     device_model: ENERTALK PLUG
 appliances:
 - original_name: TV
-  type: TV
+  type: television
   instance: 1
   meters:
   - 2
@@ -28,12 +28,12 @@ appliances:
   meters:
   - 3
 - original_name: fridge
-  type: fridge
+  type: fridge freezer
   instance: 1
   meters:
   - 4
 - original_name: rice-cooker
-  type: rice-cooker
+  type: rice cooker
   instance: 1
   meters:
   - 5
