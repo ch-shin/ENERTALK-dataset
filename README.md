@@ -1,5 +1,5 @@
 # ENERTALK-dataset
-**The ENERTALK Dataset, 15 Hz Electricity Consumption Data from 22 Houses in Korea**
+**The ENERTALK Dataset, 15 Hz Electricity Consumption Data from 22 Houses in Korea [[paper]](https://www.nature.com/articles/s41597-019-0212-5.epdf) [[dataset]] (https://springernature.figshare.com/collections/The_ENERTALK_Dataset_15_Hz_Electricity_Consumption_Data_from_22_Houses_in_Korea/4502780)**
 
 This repository contains jupyter notebooks for plots in the ENERTALK dataset paper. In order to visualize figures using notebooks, the 'ENERTALK' dataset must be downloaded first.
 
