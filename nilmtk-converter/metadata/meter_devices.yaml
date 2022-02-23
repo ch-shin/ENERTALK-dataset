@@ -3,6 +3,7 @@ ENERTALK:
   manufacturer: ENCORED
   manufacturer_url: https://www.enertalk.com/
   sample_period: 0.06666666666666667
+  max_sample_period: 6   # Max allowable interval between samples. Seconds.
   measurements:
   - physical_quantity: power
     type: active
@@ -18,6 +19,7 @@ ENERTALK PLUG:
   manufacturer: ENCORED
   manufacturer_url: https://www.enertalk.com/
   sample_period: 0.06666666666666667
+  max_sample_period: 6
   measurements:
   - physical_quantity: power
     type: active
